@@ -1,4 +1,4 @@
-package com.example.smartummah.view
+package com.example.smartummah.view.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

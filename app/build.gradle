@@ -49,4 +49,7 @@ dependencies {
     def navigation_version = "2.5.3"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+
+    //Third Party Libraries
+    implementation 'com.github.ahmedeltaher:Azan:3.0.0'
 }

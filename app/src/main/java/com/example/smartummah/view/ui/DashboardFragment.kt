@@ -1,4 +1,4 @@
-package com.example.smartummah.view
+package com.example.smartummah.view.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.smartummah.R
 import com.example.smartummah.databinding.FragmentDashboardBinding
 import com.example.smartummah.viewmodel.DashboardViewModel
+
 
 class DashboardFragment : Fragment() {
 
@@ -36,8 +37,25 @@ class DashboardFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         mViewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
-        mViewModel.setName("Jishan Chowdhury")
         mBinding.viewModel = mViewModel
+
     }
+
+    //   private fun testPrayerTimes() {
+//        val today = SimpleDate(GregorianCalendar())
+//        val location = Location(23.8198,  90.3659, 6.0, 0)
+//        val azan = Azan(location, Method.MUSLIM_LEAGUE)
+//        val prayerTimes = azan.getPrayerTimes(today)
+//        //val imsaak = azan.getImsaak(today)
+//
+//        //println("date ---> " + today.day + " / " + today.month + " / " + today.year)
+//        Log.d("testFazr",prayerTimes.fajr().toString())
+//        Log.d("testZ",prayerTimes.thuhr().toString())
+//        Log.d("testA",prayerTimes.assr().toString())
+//        Log.d("testM",prayerTimes.maghrib().toString())
+//        Log.d("testIsha",prayerTimes.ishaa().toString())
+//        Log.d("testSunrise",prayerTimes.shuruq().toString())
+
+//    }
 
 }

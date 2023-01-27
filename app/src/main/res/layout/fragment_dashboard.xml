@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="com.example.smartummah.utils.StringUtils" />
         <variable
             name="viewModel"
             type="com.example.smartummah.viewmodel.DashboardViewModel" />
@@ -12,13 +14,40 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.DashboardFragment">
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".view.ui.DashboardFragment">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@{viewModel.name}"
-            android:gravity="center" />
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@{viewModel.fazrTime}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@{viewModel.zuhrTime}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@{viewModel.asrTime}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@{viewModel.magribTime}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@{viewModel.ishaTime}" />
+
 
     </LinearLayout>
 </layout>

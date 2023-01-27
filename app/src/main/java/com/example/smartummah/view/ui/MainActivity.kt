@@ -1,4 +1,4 @@
-package com.example.smartummah.view
+package com.example.smartummah.view.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
