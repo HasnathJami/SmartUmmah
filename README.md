@@ -1,6 +1,6 @@
 # SmartUmmah
 An android app about islamic prayer times
 
-Update:
+Update
 -------
 Many features to come (Work In Progress)
