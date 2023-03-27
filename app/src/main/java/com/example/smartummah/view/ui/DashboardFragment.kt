@@ -2,9 +2,11 @@ package com.example.smartummah.view.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -33,11 +35,16 @@ class DashboardFragment : Fragment() {
         return mBinding.root
     }
 
+    @RequiresApi(33)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+
         mViewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
         mBinding.viewModel = mViewModel
+        var bundle : Bundle = this.requireArguments()
+        var data  = bundle.getSerializable("key")
+        Log.d("checkKey", data.toString())
 
     }
 

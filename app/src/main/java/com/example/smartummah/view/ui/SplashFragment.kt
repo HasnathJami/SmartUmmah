@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
 import com.example.smartummah.R
 import com.example.smartummah.databinding.FragmentSplashBinding
+import com.example.smartummah.model.Prayer
 
 class SplashFragment : Fragment() {
 
@@ -44,11 +45,19 @@ class SplashFragment : Fragment() {
     }
 
     private fun populateSplashScreen() {
+        var bundle = Bundle()
+        var prayer = Prayer(1,"sayem")
+        //bundle.putParcelable("key","Jishan")
+        bundle.putSerializable("key",prayer)
         Handler(Looper.getMainLooper()).postDelayed({
             findNavController(mBinding.root)
-                .navigate(R.id.dashboardFragment, null)
+                .navigate(R.id.dashboardFragment, bundle)
             (activity as MainActivity).supportActionBar?.show()
         }, 1500)
         findNavController(mBinding.root).popBackStack(R.id.splashScreenFragment, true);
     }
+}
+
+private fun Bundle.putSerializable(s: String, prayer: Prayer) {
+
 }

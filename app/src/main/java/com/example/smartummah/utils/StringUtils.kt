@@ -5,7 +5,7 @@ import com.azan.Time
 class StringUtils {
     companion object {
 
-        fun timeToString(time: Time): String {
+        fun <T> timeToString(time: T): String {
             return time.toString()
         }
     }
