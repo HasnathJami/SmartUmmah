@@ -2,16 +2,19 @@ package com.example.smartummah.view.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.smartummah.R
 import com.example.smartummah.databinding.FragmentDashboardBinding
+import com.example.smartummah.model.Prayer
+import com.example.smartummah.view.adapter.PrayerTimeAdapter
 import com.example.smartummah.viewmodel.DashboardViewModel
 
 
@@ -20,6 +23,7 @@ class DashboardFragment : Fragment() {
     lateinit var mContext: Context
     lateinit var mBinding: FragmentDashboardBinding
     lateinit var mViewModel: DashboardViewModel
+    var list: ArrayList<Prayer> = ArrayList()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -42,10 +46,28 @@ class DashboardFragment : Fragment() {
 
         mViewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
         mBinding.viewModel = mViewModel
-        var bundle : Bundle = this.requireArguments()
-        var data  = bundle.getSerializable("key")
-        Log.d("checkKey", data.toString())
+        var bundle: Bundle = this.requireArguments()
+        var data = bundle.getSerializable("key")
+        //Log.d("checkKey", data.toString())
 
+        //subscribeUiToPrayerList(mViewModel.getPrayerList())
+        subscribeUiToPrayerList(mViewModel.prayerListExtract)
+
+    }
+
+    private fun subscribeUiToPrayerList(liveData: LiveData<List<Prayer>>) {
+        liveData.observe(viewLifecycleOwner) { value ->
+            list.clear()
+            list.addAll(value)
+            populateRecyclerView();
+        }
+    }
+
+    private fun populateRecyclerView() {
+        val adapter = PrayerTimeAdapter(list)
+        mBinding.rvPrayerTimes.setHasFixedSize(true)
+        mBinding.rvPrayerTimes.layoutManager = LinearLayoutManager(mContext)
+        mBinding.rvPrayerTimes.adapter = adapter
     }
 
     //   private fun testPrayerTimes() {

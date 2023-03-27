@@ -12,13 +12,14 @@
     </data>
 
     <LinearLayout
+        android:background="#F1EEEE"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_gravity= "center"
         android:orientation="vertical"
         tools:context=".view.ui.DashboardFragment">
 
-        <TextView
+        <!-- <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -46,7 +47,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="@{viewModel.ishaTime}" />
+            android:text="@{viewModel.ishaTime}" /> -->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_prayer_times"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
 
     </LinearLayout>

@@ -46,9 +46,9 @@ class SplashFragment : Fragment() {
 
     private fun populateSplashScreen() {
         var bundle = Bundle()
-        var prayer = Prayer(1,"sayem")
+        //var prayer = Prayer("test","sayem")
         //bundle.putParcelable("key","Jishan")
-        bundle.putSerializable("key",prayer)
+        //bundle.putSerializable("key",prayer)
         Handler(Looper.getMainLooper()).postDelayed({
             findNavController(mBinding.root)
                 .navigate(R.id.dashboardFragment, bundle)
