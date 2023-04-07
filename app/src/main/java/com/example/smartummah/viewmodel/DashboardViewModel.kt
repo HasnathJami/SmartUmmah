@@ -72,10 +72,10 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
         }
         list.add(res5)
 
-        var res6 = Prayer("Sunrise", sunriseTime.value).also {
+        var res66 = Prayer("Sunrise", sunriseTime.value).also {
             //prayer -> prayer.prayerName = prayer.prayerName.uppercase()
         }
-        list.add(res6)
+        list.add(res66)
 
 //         Return Unit
 //        val res7 = Prayer("","").let { prayer ->
