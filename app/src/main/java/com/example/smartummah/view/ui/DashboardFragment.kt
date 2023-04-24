@@ -13,9 +13,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.smartummah.R
 import com.example.smartummah.databinding.FragmentDashboardBinding
+import com.example.smartummah.di.AppModule
+import com.example.smartummah.di.DaggerAppComponent
 import com.example.smartummah.model.Prayer
 import com.example.smartummah.view.adapter.PrayerTimeAdapter
 import com.example.smartummah.viewmodel.DashboardViewModel
+import javax.inject.Inject
 
 
 class DashboardFragment : Fragment() {
@@ -24,6 +27,9 @@ class DashboardFragment : Fragment() {
     lateinit var mBinding: FragmentDashboardBinding
     lateinit var mViewModel: DashboardViewModel
     var list: ArrayList<Prayer> = ArrayList()
+
+    @Inject
+    lateinit var myContext: Context
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -42,7 +48,7 @@ class DashboardFragment : Fragment() {
     @RequiresApi(33)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        initComponent()
 
         mViewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
         mBinding.viewModel = mViewModel
@@ -52,7 +58,21 @@ class DashboardFragment : Fragment() {
 
         //subscribeUiToPrayerList(mViewModel.getPrayerList())
         subscribeUiToPrayerList(mViewModel.prayerListExtract)
+        var a = 10
+        var b =10
+        var c = 30
+        var d= 30
+        var g = 50
+        var e = 44
+        var l =40
+    }
 
+    private fun initComponent(){
+       val appComponent = DaggerAppComponent.builder()
+            .appModule(AppModule(mContext))
+            .build()
+
+       appComponent.inject(this)
     }
 
     private fun subscribeUiToPrayerList(liveData: LiveData<List<Prayer>>) {
