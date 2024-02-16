@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -45,27 +45,30 @@ class DashboardFragment : Fragment() {
         return mBinding.root
     }
 
-    @RequiresApi(33)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initComponent()
 
         mViewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
         mBinding.viewModel = mViewModel
-        var bundle: Bundle = this.requireArguments()
-        var data = bundle.getSerializable("key")
-        //Log.d("checkKey", data.toString())
+//        var bundle: Bundle = this.requireArguments()
+//        var data = bundle.getSerializable("key")
 
-        //subscribeUiToPrayerList(mViewModel.getPrayerList())
-        subscribeUiToPrayerList(mViewModel.prayerListExtract)
+        //subscribeUiToPrayerList(mViewModel.prayerListExtract)
+        if (resources.getBoolean(R.bool.is_demo)) {
+            Toast.makeText(context, "Fetch from API Call", Toast.LENGTH_LONG).show()
+        } else {
+            subscribeUiToPrayerList(mViewModel.fetchPrayerList())
+        }
+
     }
 
-    private fun initComponent(){
-       val appComponent = DaggerAppComponent.builder()
+    private fun initComponent() {
+        val appComponent = DaggerAppComponent.builder()
             .appModule(AppModule(mContext))
             .build()
 
-       appComponent.inject(this)
+        appComponent.inject(this)
     }
 
     private fun subscribeUiToPrayerList(liveData: LiveData<List<Prayer>>) {
@@ -82,22 +85,5 @@ class DashboardFragment : Fragment() {
         mBinding.rvPrayerTimes.layoutManager = LinearLayoutManager(mContext)
         mBinding.rvPrayerTimes.adapter = adapter
     }
-
-    //   private fun testPrayerTimes() {
-//        val today = SimpleDate(GregorianCalendar())
-//        val location = Location(23.8198,  90.3659, 6.0, 0)
-//        val azan = Azan(location, Method.MUSLIM_LEAGUE)
-//        val prayerTimes = azan.getPrayerTimes(today)
-//        //val imsaak = azan.getImsaak(today)
-//
-//        //println("date ---> " + today.day + " / " + today.month + " / " + today.year)
-//        Log.d("testFazr",prayerTimes.fajr().toString())
-//        Log.d("testZ",prayerTimes.thuhr().toString())
-//        Log.d("testA",prayerTimes.assr().toString())
-//        Log.d("testM",prayerTimes.maghrib().toString())
-//        Log.d("testIsha",prayerTimes.ishaa().toString())
-//        Log.d("testSunrise",prayerTimes.shuruq().toString())
-
-//    }
 
 }
