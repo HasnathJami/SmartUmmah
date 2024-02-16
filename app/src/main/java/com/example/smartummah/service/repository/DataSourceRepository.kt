@@ -13,7 +13,7 @@ class DataSourceRepository {
         fun fetchPrayerTimes () : List<Prayer> {
             val today = SimpleDate(GregorianCalendar())
             val location = Location(23.8198, 90.3659, 6.0, 0)
-            val azan = Azan(location, Method.MUSLIM_LEAGUE)
+            val azan = Azan(location, Method.KARACHI_HANAF)
             val prayerTimes = azan.getPrayerTimes(today)
 
              var prayerList: ArrayList<Prayer> = ArrayList()
@@ -27,7 +27,7 @@ class DataSourceRepository {
             val asr = Prayer("Asr", StringUtils.timeToString(prayerTimes.assr()))
             prayerList.add(asr)
 
-            var magrib = Prayer("Magrib", StringUtils.timeToString(prayerTimes.assr()))
+            var magrib = Prayer("Magrib", StringUtils.timeToString(prayerTimes.maghrib()))
             prayerList.add(magrib)
 
             var esha = Prayer("Esha", StringUtils.timeToString(prayerTimes.ishaa()))
