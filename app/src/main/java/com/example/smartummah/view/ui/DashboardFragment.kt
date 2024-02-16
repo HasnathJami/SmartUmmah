@@ -58,13 +58,6 @@ class DashboardFragment : Fragment() {
 
         //subscribeUiToPrayerList(mViewModel.getPrayerList())
         subscribeUiToPrayerList(mViewModel.prayerListExtract)
-        var a = 10
-        var b =10
-        var c = 30
-        var d= 30
-        var g = 50
-        var e = 44
-        var l =40
     }
 
     private fun initComponent(){
