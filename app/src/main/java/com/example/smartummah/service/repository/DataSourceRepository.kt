@@ -1,14 +1,31 @@
 package com.example.smartummah.service.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.azan.Azan
 import com.azan.Method
 import com.azan.astrologicalCalc.Location
 import com.azan.astrologicalCalc.SimpleDate
 import com.example.smartummah.model.Prayer
+import com.example.smartummah.model.PrayerTimes
+import com.example.smartummah.service.network.ApiInterface
 import com.example.smartummah.utils.StringUtils
 import java.util.*
+import javax.inject.Inject
 
-class DataSourceRepository {
+class DataSourceRepository @Inject constructor(private val apiInterface: ApiInterface) {
+
+    private val _prayerTimes = MutableLiveData<PrayerTimes>()
+    val prayerTimes :LiveData<PrayerTimes>
+    get() = _prayerTimes
+
+    suspend fun getPrayerTimesFromApi() {
+        val result = apiInterface.fetchPrayerTimes("18-02-2024", "Dhaka","Bangladesh",1)
+        if(result.isSuccessful && result.body() != null) {
+            _prayerTimes.postValue(result.body())
+        }
+    }
+
     companion object {
         fun fetchPrayerTimes () : List<Prayer> {
             val today = SimpleDate(GregorianCalendar())

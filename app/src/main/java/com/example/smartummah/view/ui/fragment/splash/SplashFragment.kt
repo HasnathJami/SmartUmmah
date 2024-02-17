@@ -1,4 +1,4 @@
-package com.example.smartummah.view.ui
+package com.example.smartummah.view.ui.fragment.splash
 
 import android.content.Context
 import android.os.Bundle
@@ -13,6 +13,7 @@ import androidx.navigation.Navigation.findNavController
 import com.example.smartummah.R
 import com.example.smartummah.databinding.FragmentSplashBinding
 import com.example.smartummah.model.Prayer
+import com.example.smartummah.view.ui.activity.MainActivity
 
 class SplashFragment : Fragment() {
 
