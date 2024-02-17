@@ -14,7 +14,7 @@ class DashboardViewModel(private val repository: DataSourceRepository) :ViewMode
         get() = repository.prayerTimes
 
     init {
-        prayerList.value = DataSourceRepository.fetchPrayerTimes()
+        prayerList.value = repository.fetchPrayerTimes()
         viewModelScope.launch {
             repository.getPrayerTimesFromApi()
         }
