@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.smartummah.R
 import com.example.smartummah.application.UserApplication
 import com.example.smartummah.databinding.FragmentDashboardBinding
+import com.example.smartummah.di.component.DaggerFragmentComponent
 import com.example.smartummah.model.Prayer
 import com.example.smartummah.model.PrayerTimes
 import com.example.smartummah.view.adapter.PrayerTimeAdapter
@@ -27,9 +28,12 @@ class DashboardFragment : Fragment() {
     @Inject
     lateinit var appViewModelFactory : AppViewModelFactory
 
+//    @Inject
+//    lateinit var apiInterface : ApiInterface
+
     lateinit var mContext: Context
     lateinit var mBinding: FragmentDashboardBinding
-    lateinit var mViewModel: DashboardViewModel
+   lateinit var mViewModel: DashboardViewModel
     var list: ArrayList<Prayer> = ArrayList()
 
 
@@ -40,7 +44,6 @@ class DashboardFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         initComponent()
     }
 
@@ -57,7 +60,7 @@ class DashboardFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
-        //mViewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
+       // mViewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
         mViewModel = ViewModelProvider(this, appViewModelFactory)[DashboardViewModel::class.java]
         mBinding.viewModel = mViewModel
 //        var bundle: Bundle = this.requireArguments()
@@ -74,12 +77,10 @@ class DashboardFragment : Fragment() {
     }
 
     private fun initComponent() {
-//        val appComponent = DaggerAppComponent.builder()
-//            .appModule(AppModule(mContext))
-//            .build()
-//
-//        appComponent.inject(this)
-        (requireActivity().application as UserApplication).applicationComponent.inject(this)
+        DaggerFragmentComponent.builder()
+            .appComponent((activity?.application as UserApplication).applicationComponent)
+            .build()
+            .inject(this)
     }
 
     private fun SubscribeUiToPrayerTimes (liveData: LiveData<PrayerTimes>) {

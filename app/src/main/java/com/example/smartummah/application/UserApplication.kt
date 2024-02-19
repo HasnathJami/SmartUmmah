@@ -9,6 +9,8 @@ class UserApplication : Application() {
     lateinit var applicationComponent: AppComponent
     override fun onCreate() {
         super.onCreate()
+        //applicationComponent = DaggerAppComponent.builder().networkModule(NetworkModule()).build() // no need this one
         applicationComponent = DaggerAppComponent.builder().build()
+       // applicationComponent.inject(this)
     }
 }

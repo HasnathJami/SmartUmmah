@@ -6,14 +6,16 @@ import com.azan.Azan
 import com.azan.Method
 import com.azan.astrologicalCalc.Location
 import com.azan.astrologicalCalc.SimpleDate
+import com.example.smartummah.di.qualifier.MyRetrofit1
 import com.example.smartummah.model.Prayer
 import com.example.smartummah.model.PrayerTimes
 import com.example.smartummah.service.network.ApiInterface
 import com.example.smartummah.utils.StringUtils
 import java.util.*
 import javax.inject.Inject
+import javax.inject.Named
 
-class DataSourceRepository @Inject constructor(private val apiInterface: ApiInterface) {
+class DataSourceRepository @Inject constructor(@MyRetrofit1 private val apiInterface: ApiInterface) {
 
     private val _prayerTimes = MutableLiveData<PrayerTimes>()
     val prayerTimes: LiveData<PrayerTimes>
