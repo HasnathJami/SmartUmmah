@@ -2,6 +2,7 @@ package com.example.smartummah.view.ui.fragment.dashboard
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,25 +11,29 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.smartummah.R
-import com.example.smartummah.application.UserApplication
 import com.example.smartummah.databinding.FragmentDashboardBinding
-import com.example.smartummah.di.component.DaggerFragmentComponent
 import com.example.smartummah.model.Prayer
 import com.example.smartummah.model.PrayerTimes
+import com.example.smartummah.service.network.ApiInterface
 import com.example.smartummah.view.adapter.PrayerTimeAdapter
-import com.example.smartummah.viewmodel.AppViewModelFactory
 import com.example.smartummah.viewmodel.DashboardViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Named
 
-
+@AndroidEntryPoint
 class DashboardFragment : Fragment() {
 
-    @Inject
-    lateinit var appViewModelFactory : AppViewModelFactory
+//    @Inject
+//    lateinit var appViewModelFactory : AppViewModelFactory
 
 //    @Inject
+//    @Named("myApiInterface2")
 //    lateinit var apiInterface : ApiInterface
 
     lateinit var mContext: Context
@@ -44,7 +49,6 @@ class DashboardFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initComponent()
     }
 
     override fun onCreateView(
@@ -61,7 +65,7 @@ class DashboardFragment : Fragment() {
 
 
        // mViewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
-        mViewModel = ViewModelProvider(this, appViewModelFactory)[DashboardViewModel::class.java]
+        mViewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
         mBinding.viewModel = mViewModel
 //        var bundle: Bundle = this.requireArguments()
 //        var data = bundle.getSerializable("key")
@@ -76,12 +80,6 @@ class DashboardFragment : Fragment() {
 
     }
 
-    private fun initComponent() {
-        DaggerFragmentComponent.builder()
-            .appComponent((activity?.application as UserApplication).applicationComponent)
-            .build()
-            .inject(this)
-    }
 
     private fun SubscribeUiToPrayerTimes (liveData: LiveData<PrayerTimes>) {
         liveData.observe(viewLifecycleOwner) {value ->

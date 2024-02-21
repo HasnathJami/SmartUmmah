@@ -1,16 +1,21 @@
 package com.example.smartummah.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.smartummah.model.Prayer
 import com.example.smartummah.model.PrayerTimes
 import com.example.smartummah.service.repository.DataSourceRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DashboardViewModel(private val repository: DataSourceRepository) :ViewModel() {
+@HiltViewModel
+class DashboardViewModel @Inject constructor(private val repository: DataSourceRepository) : ViewModel() {
     private var prayerList: MutableLiveData<List<Prayer>> = MutableLiveData()
 
-    val prayerTimesLiveData : LiveData<PrayerTimes>
+    val prayerTimesLiveData: LiveData<PrayerTimes>
         get() = repository.prayerTimes
 
     init {
